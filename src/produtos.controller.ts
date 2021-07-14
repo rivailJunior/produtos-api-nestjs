@@ -1,3 +1,4 @@
+import { Produto } from './produto.model';
 import {
   Body,
   Controller,
@@ -10,30 +11,35 @@ import {
 
 @Controller('produtos')
 export class ProdutosController {
+  produtos: Produto[] = [
+    new Produto('LIV01', 'Livro TDD e BDD na pratica', 29.9),
+    new Produto('LIV02', 'Livro Iniciando Flutter', 29.9),
+    new Produto('LIV03', 'Inteligencia artificial com servico', 29.9),
+  ];
+
   @Get()
-  obterTodos(): string {
-    return 'Lista todos os produtos';
+  obterTodos(): Produto[] {
+    return this.produtos;
   }
 
   @Get(':id')
-  obeterUm(@Param() params): string {
-    return `Retorna os dados do produto ${params.id}`;
+  obeterUm(@Param() params): Produto {
+    return this.produtos[0];
   }
 
   @Post()
-  criar(@Body() produto): string {
-    console.log('produto', produto);
-    return 'Produto Criado';
+  criar(@Body() produto: Produto) {
+    produto.id = Date.now();
+    return this.produtos.push(produto);
   }
 
   @Put()
-  alterar(@Body() produto): string {
-    console.log('produto', produto);
-    return 'Produto Atualizado';
+  alterar(@Body() produto: Produto): Produto {
+    return produto;
   }
 
   @Delete(':id')
-  apagar(@Param() params): string {
-    return `Apaga o produto ${params.id}`;
+  apagar(@Param() params) {
+    return this.produtos.pop();
   }
 }

@@ -1,10 +1,9 @@
-import { LivroServices } from './livros.service';
-import { LivrosController } from './livros.controller';
+import { UserModule } from './user/user.module';
+import { BooksModule } from './book/books.module';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+// import { AppController } from './app.controller';
+// import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Livro } from './livro.model';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -20,9 +19,11 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadModels: true,
       synchronize: true,
     }),
-    SequelizeModule.forFeature([Livro]),
+    BooksModule,
+    UserModule,
   ],
-  controllers: [AppController, LivrosController],
-  providers: [AppService, LivroServices],
+
+  // controllers: [AppController, BooksController],
+  // providers: [AppService, BooksServices],
 })
 export class AppModule {}

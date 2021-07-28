@@ -1,5 +1,5 @@
-import { LivroServices } from './livros.service';
-import { Livro } from './livro.model';
+import { BooksServices } from './books.service';
+import { Livro } from './book.model';
 import {
   Body,
   Controller,
@@ -11,30 +11,30 @@ import {
 } from '@nestjs/common';
 
 @Controller('livros')
-export class LivrosController {
-  constructor(private livrosService: LivroServices) {}
+export class BooksController {
+  constructor(private booksServices: BooksServices) {}
   @Get()
   async obterTodos(): Promise<Livro[]> {
-    return this.livrosService.obterTodos();
+    return this.booksServices.getAll();
   }
 
   @Get(':id')
   async obeterUm(@Param() params): Promise<Livro> {
-    return this.livrosService.obterUm(params.id);
+    return this.booksServices.getById(params.id);
   }
 
   @Post()
   async criar(@Body() livro: Livro) {
-    return this.livrosService.criar(livro);
+    return this.booksServices.create(livro);
   }
 
   @Put()
   async alterar(@Body() livro: Livro): Promise<[number, Livro[]]> {
-    return this.livrosService.alterar(livro);
+    return this.booksServices.update(livro);
   }
 
   @Delete(':id')
   async apagar(@Param() params) {
-    return this.livrosService.apagar(params.id);
+    return this.booksServices.deleteById(params.id);
   }
 }

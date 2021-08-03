@@ -1,13 +1,11 @@
-import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
+import { IsNotEmpty, IsEmail } from 'class-validator';
+import { IsUserAlreadyExist } from './isUserUniqueValidator';
 
 export class User {
   id: number;
 
-  @IsNotEmpty({
-    message: 'Nome do usuário é obrigatório.',
-  })
-  @IsString({
-    message: 'Nome do usuário precisa ser uma string.',
+  @IsUserAlreadyExist({
+    message: 'Nome de usuario precisa ser unico',
   })
   name: string;
 

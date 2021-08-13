@@ -1,9 +1,13 @@
+import { Exclude, Expose } from 'class-transformer';
 import { IsNotEmpty, IsEmail } from 'class-validator';
 import { IsUserAlreadyExist } from './isUserUniqueValidator';
 
 export class User {
   id: number;
 
+  @Expose({
+    name: 'userName',
+  })
   @IsUserAlreadyExist({
     message: 'Nome de usuario precisa ser unico',
   })
@@ -18,6 +22,12 @@ export class User {
   @IsEmail()
   email: string;
 
+  @Expose({
+    name: 'pws',
+  })
+  @Exclude({
+    toPlainOnly: true,
+  })
   @IsNotEmpty({
     message: 'Senha é obrigatório.',
   })
@@ -28,5 +38,8 @@ export class User {
   })
   fullname: string;
 
+  @Expose({
+    name: 'joinDate',
+  })
   registeredAt: Date;
 }

@@ -14,6 +14,7 @@ export class UserController {
 
   @Post()
   public create(@Body() user: User): User {
+    throw new Error('Deu erro');
     const created = this.userService.create(user);
 
     return created;

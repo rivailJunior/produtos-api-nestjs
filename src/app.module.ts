@@ -1,3 +1,4 @@
+import { ExceptionHttpFilter } from './common/filters/exception-http-filter';
 import { UserModule } from './user/user.module';
 import { BooksModule } from './book/books.module';
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
@@ -5,7 +6,7 @@ import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 // import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -24,6 +25,10 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     UserModule,
   ],
   providers: [
+    {
+      provide: APP_FILTER,
+      useClass: ExceptionHttpFilter,
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor,

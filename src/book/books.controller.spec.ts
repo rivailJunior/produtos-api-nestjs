@@ -31,16 +31,8 @@ describe('Books', () => {
   });
   describe('BooksController', () => {
     it('should get all books', async () => {
-      const mockBookData = {
-        id: 2,
-        codigo: 'LIV001',
-        nome: 'Livro de javascript para iniciantes',
-        preco: '29.90',
-        createdAt: '2021-07-16T21:42:29.000Z',
-        updatedAt: '2021-07-16T21:45:55.000Z',
-      };
       const result = await appController.obterTodos();
-      expect(result).toEqual([
+      expect(result).toMatchObject([
         {
           id: 1,
           codigo: 'LIV001',

@@ -1,6 +1,8 @@
+import { NestResponseBuilder } from './../core/http/nest-response.builder';
 import { User } from './user.entity';
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, HttpStatus } from '@nestjs/common';
 import { UserService } from './user.service';
+import { NestResponse } from 'src/core/http/nest-response';
 
 @Controller('users')
 export class UserController {
@@ -13,10 +15,12 @@ export class UserController {
   }
 
   @Post()
-  public create(@Body() user: User): User {
-    throw new Error('Deu erro');
+  public create(@Body() user: User): NestResponse {
     const created = this.userService.create(user);
-
-    return created;
+    return new NestResponseBuilder()
+      .withStatus(HttpStatus.CREATED)
+      .withHeaders({ Location: `/users/${created.name}` })
+      .withBody(created)
+      .build();
   }
 }

@@ -1,3 +1,4 @@
+import { TransformResponseInterceptor } from './core/http/transform-response.interceptor';
 import { ExceptionHttpFilter } from './common/filters/exception-http-filter';
 import { UserModule } from './user/user.module';
 import { BooksModule } from './book/books.module';
@@ -33,6 +34,7 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor,
     },
+    { provide: APP_INTERCEPTOR, useClass: TransformResponseInterceptor },
   ],
 })
 export class AppModule {}

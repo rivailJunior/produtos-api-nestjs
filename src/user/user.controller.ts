@@ -10,7 +10,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { NestResponse } from 'src/core/http/nest-response';
+import { NestResponse } from '../core/http/nest-response';
 
 @Controller('users')
 export class UserController {
